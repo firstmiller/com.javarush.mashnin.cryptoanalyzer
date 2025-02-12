@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.javarush.mashnin</groupId>
-    <artifactId>mashnincryptoanalyzer</artifactId>
+    <artifactId>cryptoanalyzer</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>cryptoanalyzer</name>
 
