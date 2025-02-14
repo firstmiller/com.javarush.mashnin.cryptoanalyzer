@@ -36,6 +36,7 @@ public class DecryptionController {
     public void initialize() {
         keyTextDecrypted.setText(String.format("Целое число, входящее в промежуток [1;%s]", Alphabet.ALPHABET.length - 1));
     }
+
     @FXML
     protected void onChooseFileDecryptFromButtonClick() {
         FileChooser fileChooser = new FileChooser();
@@ -55,6 +56,7 @@ public class DecryptionController {
         } else
             pathToDecrypted.setText("txt файл для шифрования");
     }
+
     @FXML
     protected void onDecryptButtonClick() {
         try {
