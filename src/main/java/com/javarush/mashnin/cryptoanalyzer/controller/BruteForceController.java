@@ -1,9 +1,7 @@
 package com.javarush.mashnin.cryptoanalyzer.controller;
 
 import com.javarush.mashnin.cryptoanalyzer.constant.Alphabet;
-import com.javarush.mashnin.cryptoanalyzer.service.CaesarCipher;
-import com.javarush.mashnin.cryptoanalyzer.service.FileManager;
-import com.javarush.mashnin.cryptoanalyzer.service.Validator;
+import com.javarush.mashnin.cryptoanalyzer.service.BruteForce;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
@@ -11,16 +9,11 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
 
 public class BruteForceController {
-    private char[] alphabet = Alphabet.ALPHABET;
+    private BruteForce bruteForce = new BruteForce(Alphabet.ALPHABET);
     private File fileFromBruteForce;
     private File selectedDirectory;
-    private CaesarCipher caesarCipher = new CaesarCipher(alphabet);
-
-    private FileManager fileManager = new FileManager();
-    private Validator validator = new Validator();
     @FXML
     private Text pathFromBruteForce;
     @FXML
@@ -52,23 +45,12 @@ public class BruteForceController {
     @FXML
     protected void onBruteForceButtonClick() {
         try {
-            validator.pathsForBruteForceIsValid(fileFromBruteForce, selectedDirectory);
-            String pathFrom = fileFromBruteForce.toString();
-            String fileName = fileFromBruteForce.getName().split(".txt")[0];
-            validator.fileIsNotEmpty(pathFrom);
-            for (int key = 1; key < alphabet.length; key++) {
-                Path directory = Path.of(selectedDirectory.toString());
-                Path file = Path.of(String.format("%sKey%d.txt", fileName, key));
-                Path pathDirectoryWithFile = directory.resolve(file);
-                fileManager.applyCipherToFile(pathFrom, pathDirectoryWithFile.toString(), caesarCipher, -key);
-            }
+            bruteForce.applyBruteForce(fileFromBruteForce, selectedDirectory);
             errorBruteForce.setText("Выполнено!");
-        }
-        catch (IllegalArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             errorBruteForce.setText(ex.getMessage());
-        }
-        catch (IOException ex) {
-            System.out.println(ex);
+        } catch (IOException ex) {
+            errorBruteForce.setText("Произошла ошибка при чтении/записи");
         }
     }
 }

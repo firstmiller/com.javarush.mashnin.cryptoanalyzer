@@ -12,7 +12,10 @@ public class Validator {
             throw new IllegalArgumentException("Введенный ключ должен быть числом!");
         }
     }
-
+    public void keyIsInRange(int key, int fromInclusive, int toExclusive) {
+        if(key < fromInclusive || key > (toExclusive - 1))
+            throw new IllegalArgumentException("Ключ выходит за допустимый диапазон");
+    }
     public void pathsForEncryptDecryptIsValid(Object file1, Object file2) {
         if (file1 == null || file2 == null)
             throw new IllegalArgumentException("Не выбран путь!");

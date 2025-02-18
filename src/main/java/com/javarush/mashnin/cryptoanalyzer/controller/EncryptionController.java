@@ -3,8 +3,7 @@ package com.javarush.mashnin.cryptoanalyzer.controller;
 import com.javarush.mashnin.cryptoanalyzer.constant.Alphabet;
 import com.javarush.mashnin.cryptoanalyzer.exception.NotValidKeyException;
 import com.javarush.mashnin.cryptoanalyzer.service.CaesarCipher;
-import com.javarush.mashnin.cryptoanalyzer.service.FileManager;
-import com.javarush.mashnin.cryptoanalyzer.service.Validator;
+import com.javarush.mashnin.cryptoanalyzer.service.CipherMode;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -16,10 +15,7 @@ import java.io.IOException;
 public class EncryptionController {
     private File fileFromEncrypt;
     private File fileToEncrypt;
-    private CaesarCipher caesarCipher = new CaesarCipher(Alphabet.ALPHABET);
-
-    private FileManager fileManager = new FileManager();
-    private Validator validator = new Validator();
+    CaesarCipher caesarCipher = new CaesarCipher(Alphabet.ALPHABET);
 
     @FXML
     private TextField keyEncrypt;
@@ -60,13 +56,7 @@ public class EncryptionController {
     @FXML
     protected void onEncryptButtonClick() {
         try {
-            validator.pathsForEncryptDecryptIsValid(fileFromEncrypt, fileToEncrypt);
-            validator.keyIsNumber(keyEncrypt.getText());
-            String pathFrom = fileFromEncrypt.toString();
-            String pathTo = fileToEncrypt.toString();
-            validator.fileIsNotEmpty(pathFrom);
-            int key = Integer.parseInt(this.keyEncrypt.getText());
-            fileManager.applyCipherToFile(pathFrom, pathTo, caesarCipher, key);
+            caesarCipher.applyCipher(fileFromEncrypt, fileToEncrypt, keyEncrypt.getText(), CipherMode.CIPHER);
             errorСrypted.setText("Содержимое файла успешно зашифровано!");
         } catch (NotValidKeyException ex) {
             errorСrypted.setText("Значение ключа должно входить в указанный диапазон!");

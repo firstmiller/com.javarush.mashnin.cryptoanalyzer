@@ -14,7 +14,7 @@ public class FileManager {
             int count;
             while ((count = bufferedReader.read(buffer)) != -1) {
                 String subString = new String(buffer, 0, count);
-                String cryptedString = caesarCipher.applyCipher(subString, key);
+                String cryptedString = caesarCipher.shiftText(subString, key);
                 bufferedWriter.write(cryptedString);
             }
         }
