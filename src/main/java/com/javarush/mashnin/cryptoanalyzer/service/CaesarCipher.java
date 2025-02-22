@@ -17,8 +17,10 @@ public class CaesarCipher {
     }
 
     public String shiftText(String text, int key) {
-        if (key <= -alphabet.length || key >= alphabet.length || key == 0)
+        if (key <= -alphabet.length || key >= alphabet.length)
             throw new NotValidKeyException(key);
+        if(key == 0)
+            return text;
         StringBuilder stringBuilder = new StringBuilder();
         for (char symbol : text.toCharArray()) {
             int pos = Arrays.binarySearch(alphabet, symbol);
