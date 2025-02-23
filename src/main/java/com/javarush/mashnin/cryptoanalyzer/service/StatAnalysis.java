@@ -32,7 +32,7 @@ public class StatAnalysis {
         return key;
     }
 
-    public int statAnalyze(CaesarCipher caesarCipher, Map<Character, Double> encryptedFreq, Map<Character, Double> sampleFreq) {
+    private int statAnalyze(CaesarCipher caesarCipher, Map<Character, Double> encryptedFreq, Map<Character, Double> sampleFreq) {
         int bestShift = 0;
         double minMSE = Double.MAX_VALUE;
         int n = alphabet.length;
@@ -56,7 +56,7 @@ public class StatAnalysis {
         return bestShift;
     }
 
-    public Map<Character, Double> calcStatistic(String pathToSampleText) {
+    private Map<Character, Double> calcStatistic(String pathToSampleText) {
         Map<Character, Integer> frequencyMap = new HashMap<>();
         int totalSymbols = 0;
 
